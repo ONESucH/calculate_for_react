@@ -21,7 +21,6 @@ class Calculate extends Component {
             logicalExpression: '%'
         };
         this.inputChange = this.inputChange.bind(this);
-        this.clearTags = this.clearTags.bind(this);
     }
 
     inputChange(event) {
