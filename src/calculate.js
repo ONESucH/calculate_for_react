@@ -1,30 +1,55 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class Calculate extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            oneNumber: '',
-            twoNumber: '',
-            resultValue: '',
-            logicalExpression: '%'
+            inpValOne: '',
+            inpValTwo: '',
+            result: 'Результат',
+            logic: ''
         };
-        this.inputChange = this.inputChange.bind(this);
+
+        this.plusFunc = this.plusFunc.bind(this);
+        this.minusFunc = this.minusFunc.bind(this);
+        this.ymnFunc = this.ymnFunc.bind(this);
+        this.delFunc = this.delFunc.bind(this);
+        this.changeInpOne = this.changeInpOne.bind(this);
+        this.changeInpTwo = this.changeInpTwo.bind(this);
     }
 
-    inputChange(event) {
-
+    plusFunc(event) {
         event.preventDefault();
-
-        console.log(this.state.oneNumber, this.state.twoNumber);
-
-        this.setState({
-            oneNumber: Number(event.target.value),
-            twoNumber: Number(event.target.value),
-            logicalExpression: event.target.innerText,
-            resultValue: this.state.oneNumber + this.state.logicalExpression + this.state.twoNumber
+         this.setState({
+            result: Number(this.state.inpValOne) + Number(this.state.inpValTwo)
         });
+    }
+    minusFunc(event) {
+        event.preventDefault();
+         this.setState({
+            result: Number(this.state.inpValOne) - Number(this.state.inpValTwo)
+        });
+    }
+    ymnFunc(event) {
+        event.preventDefault();
+         this.setState({
+            result: Number(this.state.inpValOne) * Number(this.state.inpValTwo)
+        });
+    }
+    delFunc(event) {
+        event.preventDefault();
+         this.setState({
+            result: Number(this.state.inpValOne) / Number(this.state.inpValTwo)
+        });
+    }
+
+    changeInpOne(event) {
+        this.setState({inpValOne: event.target.value});
+    }
+
+    changeInpTwo(event) {
+        this.setState({inpValTwo: event.target.value});
     }
 
     render() {
@@ -32,18 +57,17 @@ class Calculate extends Component {
             <form className="calculate-css">
                 <h2>Калькулятор на React</h2>
                 <div className="logic">
-                    <button onClick={this.inputChange}>+</button>
-                    <button onClick={this.inputChange}>-</button>
-                    <button onClick={this.inputChange}>/</button>
-                    <button onClick={this.inputChange}>*</button>
+                    <button onClick={this.plusFunc}>+</button>
+                    <button onClick={this.minusFunc}>-</button>
+                    <button onClick={this.ymnFunc}>*</button>
+                    <button onClick={this.delFunc}>/</button>
                 </div>
                 <div className="calculate">
-                    <input type="text" placeholder="Первое число" onChange={this.inputChange} value={this.state.oneNumber} />
-                    <span id="activeButton">{this.state.logicalExpression}</span>
-                    <input type="text" placeholder="Второе число" onChange={this.inputChange} value={this.state.twoNumber} />
+                    <input type="text" placeholder="Первое число" onChange={this.changeInpOne} value={this.state.inpValOne} />
+                    <input type="text" placeholder="Второе число" onChange={this.changeInpTwo} value={this.state.inpValTwo} />
                 </div>
                 <div>
-                    <input type="text" placeholder="Результат" value={this.state.resultValue} disabled />
+                    <input type="text" placeholder="Результат" value={this.state.result}/>
                 </div>
             </form>
         );
